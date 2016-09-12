@@ -21,7 +21,7 @@ private[prometheus] class FinagleMetricsCollector(registry: Metrics) extends Col
     val metrics = new util.LinkedList[MetricFamilySamples]()
     registry.sampleGauges().foreach { case (name: String, value: Number) => metrics.addAll(fromGauge(sanitizeMetricName(name), value)) }
     registry.sampleCounters().foreach { case (name: String, value: Number) => metrics.addAll(fromCounter(sanitizeMetricName(name), value)) }
-    registry.sampleHistograms().foreach { case (name: String, value: Number) => metrics.addAll(fromHistogram(sanitizeMetricName(name), value)) }
+    registry.sampleHistograms().foreach { case (name: String, value: Snapshot) => metrics.addAll(fromHistogram(sanitizeMetricName(name), value)) }
     metrics
   }
 

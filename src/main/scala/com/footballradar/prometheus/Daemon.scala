@@ -10,6 +10,8 @@ import com.twitter.util.{Await, Future}
 
 object Daemon extends TwitterServer with PrometheusMetricsExporter {
 
+  override def failfastOnFlagsNotParsed: Boolean = true
+
   val receiver = LoadedStatsReceiver.scope("prometheus_demo")
   val requests = receiver.counter("http_requests")
 
@@ -28,7 +30,6 @@ object Daemon extends TwitterServer with PrometheusMetricsExporter {
     import scala.collection.JavaConverters._
 
     val serviceManager: ServiceManager = new ServiceManager(servicesToStart.asJava)
-
     serviceManager.startAsync()
 
     onExit {
@@ -37,12 +38,10 @@ object Daemon extends TwitterServer with PrometheusMetricsExporter {
     }
   }
 
-
-    // TODO: check for intransative dependencies
-
   def main(): Unit = {
     val server = Http.serve(":8888", httpService)
     closeOnExit(server)
+
     Await.ready(adminHttpServer)
   }
 }

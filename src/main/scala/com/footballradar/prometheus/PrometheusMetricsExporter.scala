@@ -1,6 +1,7 @@
 package com.footballradar.prometheus
 
 import java.io.StringWriter
+
 import com.twitter.app.App
 import com.twitter.finagle.Service
 import com.twitter.finagle.http.{Request, Response, Status}
@@ -34,3 +35,4 @@ class PrometheusMetricsHandler(registry: CollectorRegistry = CollectorRegistry.d
     Future.value(response)
   }
 }
+
