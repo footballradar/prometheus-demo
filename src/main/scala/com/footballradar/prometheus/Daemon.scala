@@ -1,10 +1,10 @@
 package com.footballradar.prometheus
 
 import com.google.common.util.concurrent.ServiceManager
+import com.twitter.finagle.http.{Request, Response, Status}
 import com.twitter.finagle.stats.LoadedStatsReceiver
 import com.twitter.finagle.util.LoadService
 import com.twitter.finagle.{Service, Http}
-import com.twitter.finagle.http.{Request, Response, Status}
 import com.twitter.server.TwitterServer
 import com.twitter.util.{Await, Future}
 
